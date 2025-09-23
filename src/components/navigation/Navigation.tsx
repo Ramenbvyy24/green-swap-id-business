@@ -1,93 +1,108 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Recycle, Leaf } from "lucide-react";
+import { scrollToSection } from "@/utils/scrollUtils";
+import PickupModal from "@/components/modals/PickupModal";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
 
   const navItems = [
-    { name: "How It Works", href: "#how-it-works" },
-    { name: "SDG Impact", href: "#sdg" },
-    { name: "Products", href: "#hydroponics" },
-    { name: "About", href: "#about" }
+    { name: "How It Works", href: "how-it-works" },
+    { name: "SDG Impact", href: "sdg" },
+    { name: "Products", href: "hydroponics" },
+    { name: "About", href: "about" }
   ];
 
+  const handleNavClick = (href: string) => {
+    scrollToSection(href);
+    setIsOpen(false);
+  };
+
+  const handleGetStarted = () => {
+    setIsPickupModalOpen(true);
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-xl flex items-center justify-center">
-              <Recycle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <div className="font-bold text-foreground text-lg">EcoPoints</div>
-              <div className="text-xs text-muted-foreground">Indonesia</div>
-            </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-muted-foreground hover:text-primary transition-colors font-medium"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" className="text-muted-foreground hover:text-primary">
-              Login
-            </Button>
-            <Button className="btn-eco-primary">
-              <Leaf className="w-4 h-4 mr-2" />
-              Get Started
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-muted-foreground hover:text-primary"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block px-4 py-2 text-muted-foreground hover:text-primary transition-colors font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
-              <div className="px-4 pt-4 space-y-3">
-                <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-primary">
-                  Login
-                </Button>
-                <Button className="btn-eco-primary w-full">
-                  <Leaf className="w-4 h-4 mr-2" />
-                  Get Started
-                </Button>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-xl flex items-center justify-center">
+                <Recycle className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="font-bold text-foreground text-lg">EcoPoints</div>
+                <div className="text-xs text-muted-foreground">Indonesia</div>
               </div>
             </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-muted-foreground hover:text-primary transition-colors font-medium"
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Desktop CTA */}
+            <div className="hidden md:flex items-center gap-4">
+              <Button variant="ghost" className="text-muted-foreground hover:text-primary">
+                Login
+              </Button>
+              <Button onClick={handleGetStarted} className="btn-eco-primary">
+                <Leaf className="w-4 h-4 mr-2" />
+                Get Started
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 text-muted-foreground hover:text-primary"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-        )}
-      </div>
-    </nav>
+
+          {/* Mobile Navigation */}
+          {isOpen && (
+            <div className="md:hidden py-4 border-t border-border">
+              <div className="space-y-4">
+                {navItems.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavClick(item.href)}
+                    className="block px-4 py-2 text-muted-foreground hover:text-primary transition-colors font-medium w-full text-left"
+                  >
+                    {item.name}
+                  </button>
+                ))}
+                <div className="px-4 pt-4 space-y-3">
+                  <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-primary">
+                    Login
+                  </Button>
+                  <Button onClick={handleGetStarted} className="btn-eco-primary w-full">
+                    <Leaf className="w-4 h-4 mr-2" />
+                    Get Started
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      <PickupModal isOpen={isPickupModalOpen} onClose={() => setIsPickupModalOpen(false)} />
+    </>
   );
 };
 
