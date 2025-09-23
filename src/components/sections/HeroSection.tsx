@@ -4,28 +4,19 @@ import { ArrowRight, Recycle, Leaf } from "lucide-react";
 import heroImage from "@/assets/hero-sustainable-van.jpg";
 import PickupModal from "@/components/modals/PickupModal";
 import { scrollToSection } from "@/utils/scrollUtils";
-
 const HeroSection = () => {
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
-
   const handleStartRecycling = () => {
     setIsPickupModalOpen(true);
   };
-
   const handleLearnMore = () => {
     scrollToSection('how-it-works');
   };
-
-  return (
-    <>
+  return <>
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={heroImage} 
-            alt="Sustainable waste collection van in Indonesian landscape"
-            className="w-full h-full object-cover opacity-20"
-          />
+          <img src={heroImage} alt="Sustainable waste collection van in Indonesian landscape" className="w-full h-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/60" />
         </div>
 
@@ -70,10 +61,10 @@ const HeroSection = () => {
               <Leaf className="w-8 h-8 text-green-300" />
             </div>
           </div>
-          <div className="absolute bottom-1/3 right-10 float-animation" style={{ animationDelay: '2s' }}>
-            <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <Recycle className="w-10 h-10 text-blue-300" />
-            </div>
+          <div className="absolute bottom-1/3 right-10 float-animation" style={{
+          animationDelay: '2s'
+        }}>
+            
           </div>
         </div>
 
@@ -99,8 +90,6 @@ const HeroSection = () => {
       </section>
 
       <PickupModal isOpen={isPickupModalOpen} onClose={() => setIsPickupModalOpen(false)} />
-    </>
-  );
+    </>;
 };
-
 export default HeroSection;
