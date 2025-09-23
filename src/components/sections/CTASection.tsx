@@ -3,25 +3,22 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone, MapPin } from "lucide-react";
 import PickupModal from "@/components/modals/PickupModal";
 import { useToast } from "@/hooks/use-toast";
-
 const CTASection = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
-
   const handleDownloadApp = () => {
     toast({
       title: "App Coming Soon! 📱",
       description: "Our mobile app is launching next month. We'll notify you when it's available for download.",
-      duration: 5000,
+      duration: 5000
     });
   };
-
   const handleSchedulePickup = () => {
     setIsPickupModalOpen(true);
   };
-
-  return (
-    <>
+  return <>
       <section className="py-24 bg-gradient-to-br from-primary via-primary-glow to-secondary relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -47,7 +44,7 @@ const CTASection = () => {
                 Download App Now
                 <Smartphone className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform" />
               </Button>
-              <Button onClick={handleSchedulePickup} variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-12 py-6">
+              <Button onClick={handleSchedulePickup} variant="outline" className="border-2 border-white hover:bg-white text-lg px-12 py-6 text-[#5dae40]">
                 Schedule Pickup
               </Button>
             </div>
@@ -100,8 +97,6 @@ const CTASection = () => {
       </section>
 
       <PickupModal isOpen={isPickupModalOpen} onClose={() => setIsPickupModalOpen(false)} />
-    </>
-  );
+    </>;
 };
-
 export default CTASection;
