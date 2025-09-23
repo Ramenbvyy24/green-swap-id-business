@@ -49,7 +49,7 @@ const HeroSection = () => {
                 Start Recycling Today
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button onClick={handleLearnMore} variant="outline" className="btn-eco-outline text-lg px-10 py-6 border-white/30 text-white hover:bg-white hover:text-primary">
+              <Button onClick={handleLearnMore} variant="outline" className="btn-eco-outline text-lg px-10 py-6 border-white/30 hover:bg-white text-stone-700">
                 Learn More
               </Button>
             </div>
