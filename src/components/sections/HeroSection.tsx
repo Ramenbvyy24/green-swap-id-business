@@ -26,7 +26,7 @@ const HeroSection = () => {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-white/30">
               <Recycle className="w-5 h-5 text-white" />
-              <span className="text-white font-semibold">West Java Waste Revolution</span>
+              <span className="text-white font-semibold">Indonesia Waste Revolution</span>
             </div>
 
             {/* Main Heading */}
