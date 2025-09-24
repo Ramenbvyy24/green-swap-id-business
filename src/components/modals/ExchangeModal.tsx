@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription } from "@/components/ui/modal";
 import { ShoppingCart, Coins, Package, Minus, Plus } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 
 interface Product {
@@ -22,6 +23,7 @@ interface ExchangeModalProps {
 }
 
 const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [userPoints] = useState(450); // Mock user points
@@ -57,7 +59,7 @@ const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
         <ModalHeader>
           <ModalTitle className="text-2xl font-bold text-primary flex items-center gap-2">
             <ShoppingCart className="w-6 h-6" />
-            Exchange EcoPoints
+            {t("modal.exchange.title")}
           </ModalTitle>
           <ModalDescription>
             Use your earned EcoPoints to get this hydroponic product

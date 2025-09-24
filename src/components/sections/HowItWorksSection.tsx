@@ -1,24 +1,28 @@
 import { Card } from "@/components/ui/card";
 import { Truck, Scale, ShoppingCart, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { scrollToSection } from "@/utils/scrollUtils";
 
 const HowItWorksSection = () => {
+  const { t } = useLanguage();
+  
   const steps = [
     {
       icon: Truck,
-      title: "Van Pickup",
-      description: "Schedule a pickup through our app. Our eco-friendly green van comes to your location to collect recyclable waste.",
+      title: t("howItWorks.step1.title"),
+      description: t("howItWorks.step1.desc"),
       color: "from-green-500 to-green-600"
     },
     {
       icon: Scale,
-      title: "Weight & Convert",
-      description: "We weigh your waste using certified scales and convert the weight into EcoPoints based on material type and quality.",
+      title: t("howItWorks.step2.title"),
+      description: t("howItWorks.step2.desc"),
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: ShoppingCart,
-      title: "Shop Hydroponics",
-      description: "Use your EcoPoints to purchase hydroponic systems, seeds, nutrients, and fresh produce from local growers.",
+      title: t("howItWorks.step3.title"),
+      description: t("howItWorks.step3.desc"),
       color: "from-emerald-500 to-emerald-600"
     }
   ];
@@ -30,15 +34,13 @@ const HowItWorksSection = () => {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-3 mb-6">
             <div className="w-2 h-2 bg-primary rounded-full pulse-eco" />
-            <span className="text-primary font-semibold">How It Works</span>
+            <span className="text-primary font-semibold">{t("nav.howItWorks")}</span>
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Simple Steps to
-            <span className="text-gradient-primary"> Sustainable Living</span>
+            {t("howItWorks.title")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Transform your household waste into valuable resources with our innovative 
-            three-step process inspired by Japanese efficiency.
+            {t("howItWorks.subtitle")}
           </p>
         </div>
 

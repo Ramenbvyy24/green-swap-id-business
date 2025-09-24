@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription } from "@/components/ui/modal";
 import { MapPin, Phone, Calendar } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 
 interface PickupModalProps {
@@ -14,6 +15,7 @@ interface PickupModalProps {
 }
 
 const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -30,7 +32,7 @@ const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
     
     // Simulate form submission
     toast({
-      title: "Pickup Scheduled Successfully! 🚛",
+      title: t("modal.pickup.success"),
       description: `Your waste pickup is scheduled for ${formData.preferredDate}. Our green van will contact you 30 minutes before arrival.`,
       duration: 5000,
     });
@@ -58,7 +60,7 @@ const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
         <ModalHeader>
           <ModalTitle className="text-2xl font-bold text-primary flex items-center gap-2">
             <MapPin className="w-6 h-6" />
-            Schedule Waste Pickup
+            {t("modal.pickup.title")}
           </ModalTitle>
           <ModalDescription>
             Fill in your details and we'll send our eco-friendly van to collect your recyclable waste.

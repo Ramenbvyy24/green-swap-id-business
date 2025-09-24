@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sprout, Coins, Package, Star } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import hydroponicImage from "@/assets/hydroponic-system.jpg";
 import ExchangeModal from "@/components/modals/ExchangeModal";
 
 const HydroponicsSection = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   const handleExchangeClick = (product: any) => {
     setSelectedProduct(product);
@@ -17,43 +19,33 @@ const HydroponicsSection = () => {
   const products = [
     {
       id: 1,
-      name: "Lettuce Starter Kit",
-      description: "Complete hydroponic system for growing fresh lettuce at home",
-      points: 50,
-      originalPrice: "Rp 250,000",
+      name: t("hydroponics.starter.title"),
+      description: t("hydroponics.starter.desc"),
+      points: 150,
+      originalPrice: "Rp 750,000",
       image: "🥬",
       category: "Starter Kit",
       rating: 4.9
     },
     {
       id: 2,
-      name: "Tomato Growing System",
-      description: "Advanced setup for cherry tomatoes with automated watering",
-      points: 120,
-      originalPrice: "Rp 600,000", 
+      name: t("hydroponics.advanced.title"),
+      description: t("hydroponics.advanced.desc"),
+      points: 300,
+      originalPrice: "Rp 1,500,000", 
       image: "🍅",
       category: "Advanced",
       rating: 4.8
     },
     {
       id: 3,
-      name: "Herb Garden Collection",
-      description: "Basil, cilantro, and mint in compact hydroponic containers",
-      points: 35,
-      originalPrice: "Rp 175,000",
+      name: t("hydroponics.premium.title"),
+      description: t("hydroponics.premium.desc"),
+      points: 500,
+      originalPrice: "Rp 2,500,000",
       image: "🌿",
-      category: "Herbs",
+      category: "Premium",
       rating: 5.0
-    },
-    {
-      id: 4,
-      name: "Nutrient Solution Pack",
-      description: "Organic liquid fertilizer for 6 months of hydroponic growing",
-      points: 25,
-      originalPrice: "Rp 125,000",
-      image: "🧪",
-      category: "Supplies",
-      rating: 4.7
     }
   ];
 
@@ -86,12 +78,10 @@ const HydroponicsSection = () => {
               <span className="text-emerald-700 font-semibold">Hydroponic Marketplace</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Grow Fresh Food with
-              <span className="text-gradient-primary"> Your EcoPoints</span>
+              {t("hydroponics.title")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Transform your recycling efforts into fresh, healthy produce. Our hydroponic systems 
-              make it easy to grow vegetables at home using sustainable methods.
+              {t("hydroponics.subtitle")}
             </p>
           </div>
 
@@ -172,7 +162,7 @@ const HydroponicsSection = () => {
                       </div>
 
                       <Button onClick={() => handleExchangeClick(product)} className="btn-eco-primary w-full">
-                        Exchange Points
+                        {t("hydroponics.cta")}
                       </Button>
                     </div>
                   </div>

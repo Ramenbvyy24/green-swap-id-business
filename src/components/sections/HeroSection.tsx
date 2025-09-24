@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Recycle, Leaf } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import heroImage from "@/assets/hero-sustainable-van.jpg";
 import PickupModal from "@/components/modals/PickupModal";
 import { scrollToSection } from "@/utils/scrollUtils";
 const HeroSection = () => {
+  const { t } = useLanguage();
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
   const handleStartRecycling = () => {
     setIsPickupModalOpen(true);
@@ -31,26 +33,22 @@ const HeroSection = () => {
 
             {/* Main Heading */}
             <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Transform Waste into
-              <span className="block text-transparent bg-gradient-to-r from-green-300 to-blue-300 bg-clip-text">
-                Sustainable Future
-              </span>
+              {t("hero.title")}
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join Indonesia's first waste-to-points ecosystem. Our green vans collect your recyclables, 
-              convert them to points, and help you grow fresh produce through hydroponic solutions.
+              {t("hero.subtitle")}
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Button onClick={handleStartRecycling} className="btn-eco-primary group text-lg px-10 py-6">
-                Start Recycling Today
+                {t("hero.cta.pickup")}
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button onClick={handleLearnMore} variant="outline" className="btn-eco-outline text-lg px-10 py-6 border-white/30 hover:bg-white text-stone-700">
-                Learn More
+                {t("hero.cta.learn")}
               </Button>
             </div>
           </div>
@@ -74,15 +72,15 @@ const HeroSection = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-white">
               <div>
                 <div className="text-3xl font-bold mb-1">50,000+</div>
-                <div className="text-white/80">Kg Waste Collected</div>
+                <div className="text-white/80">{t("hero.stats.waste")}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold mb-1">2,500+</div>
-                <div className="text-white/80">Families Participating</div>
+                <div className="text-white/80">{t("hero.stats.families")}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-1">15+</div>
-                <div className="text-white/80">SDG Goals Supported</div>
+                <div className="text-3xl font-bold mb-1">15,000+</div>
+                <div className="text-white/80">{t("hero.stats.plants")}</div>
               </div>
             </div>
           </div>

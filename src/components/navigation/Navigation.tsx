@@ -2,17 +2,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Recycle, Leaf } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollUtils";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import PickupModal from "@/components/modals/PickupModal";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navItems = [
-    { name: "How It Works", href: "how-it-works" },
-    { name: "SDG Impact", href: "sdg" },
-    { name: "Products", href: "hydroponics" },
-    { name: "About", href: "about" }
+    { name: t("nav.howItWorks"), href: "how-it-works" },
+    { name: t("nav.sdgImpact"), href: "sdg" },
+    { name: t("nav.products"), href: "hydroponics" },
+    { name: t("nav.about"), href: "about" }
   ];
 
   const handleNavClick = (href: string) => {
@@ -55,12 +58,13 @@ const Navigation = () => {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
+              <LanguageSwitcher />
               <Button variant="ghost" className="text-muted-foreground hover:text-primary">
-                Login
+                {t("nav.login")}
               </Button>
               <Button onClick={handleGetStarted} className="btn-eco-primary">
                 <Leaf className="w-4 h-4 mr-2" />
-                Get Started
+                {t("nav.getStarted")}
               </Button>
             </div>
 
@@ -87,12 +91,15 @@ const Navigation = () => {
                   </button>
                 ))}
                 <div className="px-4 pt-4 space-y-3">
+                  <div className="flex justify-center mb-3">
+                    <LanguageSwitcher />
+                  </div>
                   <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-primary">
-                    Login
+                    {t("nav.login")}
                   </Button>
                   <Button onClick={handleGetStarted} className="btn-eco-primary w-full">
                     <Leaf className="w-4 h-4 mr-2" />
-                    Get Started
+                    {t("nav.getStarted")}
                   </Button>
                 </div>
               </div>

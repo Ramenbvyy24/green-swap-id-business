@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import PickupModal from "@/components/modals/PickupModal";
 import { useToast } from "@/hooks/use-toast";
 const CTASection = () => {
-  const {
-    toast
-  } = useToast();
+  const { t } = useLanguage();
+  const { toast } = useToast();
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
   const handleDownloadApp = () => {
     toast({
@@ -31,21 +31,19 @@ const CTASection = () => {
           {/* Main CTA Content */}
           <div className="mb-16">
             <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Ready to Make a
-              <span className="block">Sustainable Impact?</span>
+              {t("cta.title")}
             </h2>
             <p className="text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join thousands of families in West Java who are transforming waste into fresh food. 
-              Start your journey toward a greener future today.
+              {t("cta.subtitle")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <Button onClick={handleDownloadApp} className="bg-white text-primary hover:bg-white/90 text-lg px-12 py-6 group">
-                Download App Now
+                {t("cta.button")}
                 <Smartphone className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform" />
               </Button>
               <Button onClick={handleSchedulePickup} variant="outline" className="border-2 border-white hover:bg-white text-lg px-12 py-6 text-[#5dae40]">
-                Schedule Pickup
+                {t("hero.cta.pickup")}
               </Button>
             </div>
           </div>

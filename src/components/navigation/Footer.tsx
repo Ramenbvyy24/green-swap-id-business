@@ -1,31 +1,34 @@
 import { Recycle, Facebook, Instagram, Twitter, Mail } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   const footerSections = [
     {
-      title: "Services",
+      title: t("footer.services"),
       links: [
-        { name: "Waste Collection", href: "#" },
-        { name: "EcoPoints System", href: "#" },
-        { name: "Hydroponic Products", href: "#" },
+        { name: t("footer.wastePickup"), href: "#" },
+        { name: t("footer.pointsSystem"), href: "#" },
+        { name: t("footer.hydroponics"), href: "#" },
         { name: "Community Programs", href: "#" }
       ]
     },
     {
-      title: "Support",
+      title: t("footer.support"),
       links: [
-        { name: "How It Works", href: "#" },
-        { name: "FAQ", href: "#" },
-        { name: "Contact Us", href: "#" },
+        { name: t("nav.howItWorks"), href: "#" },
+        { name: t("footer.faq"), href: "#" },
+        { name: t("footer.contact"), href: "#" },
         { name: "Track Pickup", href: "#" }
       ]
     },
     {
-      title: "Company",
+      title: t("footer.company"),
       links: [
-        { name: "About Us", href: "#" },
+        { name: t("footer.aboutUs"), href: "#" },
         { name: "Our Mission", href: "#" },
-        { name: "Careers", href: "#" },
+        { name: t("footer.careers"), href: "#" },
         { name: "Press", href: "#" }
       ]
     }
@@ -48,8 +51,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-white/80 leading-relaxed mb-6">
-              Transforming waste into sustainable opportunities across West Java. 
-              Building a cleaner, greener future through community-driven recycling.
+              {t("footer.tagline")}
             </p>
             
             {/* Social Links */}
