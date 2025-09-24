@@ -2,33 +2,27 @@ import { Card } from "@/components/ui/card";
 import { Truck, Scale, ShoppingCart, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { scrollToSection } from "@/utils/scrollUtils";
-
 const HowItWorksSection = () => {
-  const { t } = useLanguage();
-  
-  const steps = [
-    {
-      icon: Truck,
-      title: t("howItWorks.step1.title"),
-      description: t("howItWorks.step1.desc"),
-      color: "from-green-500 to-green-600"
-    },
-    {
-      icon: Scale,
-      title: t("howItWorks.step2.title"),
-      description: t("howItWorks.step2.desc"),
-      color: "from-blue-500 to-blue-600"
-    },
-    {
-      icon: ShoppingCart,
-      title: t("howItWorks.step3.title"),
-      description: t("howItWorks.step3.desc"),
-      color: "from-emerald-500 to-emerald-600"
-    }
-  ];
-
-  return (
-    <section id="how-it-works" className="py-24 bg-muted/30">
+  const {
+    t
+  } = useLanguage();
+  const steps = [{
+    icon: Truck,
+    title: t("howItWorks.step1.title"),
+    description: t("howItWorks.step1.desc"),
+    color: "from-green-500 to-green-600"
+  }, {
+    icon: Scale,
+    title: t("howItWorks.step2.title"),
+    description: t("howItWorks.step2.desc"),
+    color: "from-blue-500 to-blue-600"
+  }, {
+    icon: ShoppingCart,
+    title: t("howItWorks.step3.title"),
+    description: t("howItWorks.step3.desc"),
+    color: "from-emerald-500 to-emerald-600"
+  }];
+  return <section id="how-it-works" className="py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
@@ -46,8 +40,7 @@ const HowItWorksSection = () => {
 
         {/* Process Steps */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          {steps.map((step, index) => (
-            <div key={step.title} className="relative group">
+          {steps.map((step, index) => <div key={step.title} className="relative group">
               <Card className="card-eco text-center group-hover:shadow-glow">
                 {/* Step Number */}
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -67,22 +60,16 @@ const HowItWorksSection = () => {
               </Card>
 
               {/* Arrow for desktop */}
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-primary/30">
+              {index < steps.length - 1 && <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-primary/30">
                   <ArrowRight className="w-8 h-8" />
-                </div>
-              )}
-            </div>
-          ))}
+                </div>}
+            </div>)}
         </div>
 
         {/* Process Flow Visualization */}
         <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-3xl p-12 text-center">
           <h3 className="text-2xl font-bold text-foreground mb-4">Machida Technique Integration</h3>
-          <p className="text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Our system implements the renowned Japanese Machida waste separation and recycling methodology, 
-            ensuring maximum efficiency and minimal environmental impact while supporting local hydroponic agriculture.
-          </p>
+          <p className="text-muted-foreground mb-8 max-w-3xl mx-auto">Sistem kami menerapkan metodologi pemisahan dan daur ulang limbah Machida Jepang yang terkenal, memastikan efisiensi maksimum dan dampak lingkungan minimal sekaligus mendukung pertanian hidroponik lokal.</p>
           
           <div className="flex flex-col md:flex-row justify-center items-center gap-8">
             <div className="bg-white rounded-xl p-6 shadow-eco">
@@ -102,8 +89,6 @@ const HowItWorksSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HowItWorksSection;
