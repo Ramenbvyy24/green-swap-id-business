@@ -30,7 +30,7 @@ const translations = {
     'hero.stats.plants': 'Plants Grown',
     
     // How It Works
-    'howItWorks.title': 'How EcoPoints Works',
+    'howItWorks.title': 'How TukarInaja Works',
     'howItWorks.subtitle': 'Transform your waste into valuable points through our simple 3-step process',
     'howItWorks.step1.title': 'Schedule Pickup',
     'howItWorks.step1.desc': 'Book a pickup time through our app. Our eco-friendly van will collect your sorted waste.',
@@ -137,7 +137,7 @@ const translations = {
     'hero.stats.plants': 'Tanaman Tumbuh',
     
     // How It Works
-    'howItWorks.title': 'Cara Kerja EcoPoints',
+    'howItWorks.title': 'Cara Kerja TukarInaja',
     'howItWorks.subtitle': 'Ubah sampah Anda menjadi poin berharga melalui proses 3 langkah sederhana kami',
     'howItWorks.step1.title': 'Jadwalkan Pickup',
     'howItWorks.step1.desc': 'Pesan waktu pickup melalui aplikasi kami. Van ramah lingkungan kami akan mengumpulkan sampah yang sudah dipilah.',

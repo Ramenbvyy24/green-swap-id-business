@@ -77,7 +77,7 @@ const CTASection = () => {
               </div>
               <div>
                 <div className="font-semibold mb-2">Email</div>
-                <div className="text-2xl font-bold">hello@ecopoints.id</div>
+                <div className="text-2xl font-bold">hello@tukarinaja.id</div>
               </div>
             </div>
             
