@@ -46,7 +46,7 @@ const Footer = () => {
                 <Recycle className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="font-bold text-xl">TukarInaja</div>
+                <div className="font-bold text-xl">TukarInAja</div>
                 <div className="text-white/70 text-sm">Sustainable Future</div>
               </div>
             </div>
@@ -115,7 +115,7 @@ const Footer = () => {
         <div className="border-t border-white/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-white/70 text-sm">
-              © 2024 TukarInaja. All rights reserved. Supporting sustainable development across Indonesia.
+              © 2024 TukarInAja. All rights reserved. Supporting sustainable development across Indonesia.
             </div>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a>

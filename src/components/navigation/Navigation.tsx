@@ -38,7 +38,7 @@ const Navigation = () => {
                 <Recycle className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="font-bold text-foreground text-lg">TukarInaja</div>
+                <div className="font-bold text-foreground text-lg">TukarInAja</div>
                 <div className="text-xs text-muted-foreground">Indonesia</div>
               </div>
             </div>
