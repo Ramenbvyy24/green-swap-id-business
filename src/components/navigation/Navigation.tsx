@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Recycle, Leaf } from "lucide-react";
+import { Menu, X, Recycle, Leaf, LogOut } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollUtils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import PickupModal from "@/components/modals/PickupModal";
 
@@ -10,6 +11,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
   const { t } = useLanguage();
+  const { signOut } = useAuth();
 
   const navItems = [
     { name: t("nav.howItWorks"), href: "how-it-works" },
@@ -59,12 +61,13 @@ const Navigation = () => {
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
               <LanguageSwitcher />
-              <Button variant="ghost" className="text-muted-foreground hover:text-primary">
-                {t("nav.login")}
-              </Button>
               <Button onClick={handleGetStarted} className="btn-eco-primary">
                 <Leaf className="w-4 h-4 mr-2" />
                 {t("nav.getStarted")}
+              </Button>
+              <Button variant="ghost" onClick={signOut} className="text-muted-foreground hover:text-primary">
+                <LogOut className="w-4 h-4 mr-2" />
+                {t("nav.logout") || "Logout"}
               </Button>
             </div>
 
@@ -94,12 +97,13 @@ const Navigation = () => {
                   <div className="flex justify-center mb-3">
                     <LanguageSwitcher />
                   </div>
-                  <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-primary">
-                    {t("nav.login")}
-                  </Button>
                   <Button onClick={handleGetStarted} className="btn-eco-primary w-full">
                     <Leaf className="w-4 h-4 mr-2" />
                     {t("nav.getStarted")}
+                  </Button>
+                  <Button variant="ghost" onClick={signOut} className="w-full justify-start text-muted-foreground hover:text-primary">
+                    <LogOut className="w-4 h-4 mr-2" />
+                    {t("nav.logout") || "Logout"}
                   </Button>
                 </div>
               </div>

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription } from "@/components/ui/modal";
 import { ShoppingCart, Coins, Package, Minus, Plus } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Product {
   id: number;
@@ -24,16 +26,47 @@ interface ExchangeModalProps {
 
 const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
-  const [userPoints] = useState(450); // Mock user points
+  const [userPoints, setUserPoints] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserPoints = async () => {
+      if (!user) return;
+      
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .rpc('get_user_ecopoints', { user_uuid: user.id });
+      
+      if (!error && data !== null) {
+        setUserPoints(data);
+      }
+      setIsLoading(false);
+    };
+
+    if (isOpen && user) {
+      fetchUserPoints();
+    }
+  }, [isOpen, user]);
 
   if (!product) return null;
 
   const totalPoints = product.points * quantity;
   const hasEnoughPoints = userPoints >= totalPoints;
 
-  const handleExchange = () => {
+  const handleExchange = async () => {
+    if (!user) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to exchange products",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!hasEnoughPoints) {
       toast({
         title: "Insufficient EcoPoints 😟",
@@ -43,14 +76,50 @@ const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
       return;
     }
 
-    toast({
-      title: "Exchange Successful! 🎉",
-      description: `${quantity}x ${product.name} added to your cart. ${totalPoints} EcoPoints deducted from your account.`,
-      duration: 5000,
-    });
+    setIsSubmitting(true);
 
-    setQuantity(1);
-    onClose();
+    try {
+      // Create order
+      const { error: orderError } = await supabase
+        .from("product_orders")
+        .insert({
+          user_id: user.id,
+          product_name: product.name,
+          quantity: quantity,
+          points_spent: totalPoints,
+        });
+
+      if (orderError) throw orderError;
+
+      // Deduct points
+      const { error: pointsError } = await supabase
+        .from("ecopoints_transactions")
+        .insert({
+          user_id: user.id,
+          amount: -totalPoints,
+          transaction_type: "spent",
+          description: `Exchanged for ${quantity}x ${product.name}`,
+        });
+
+      if (pointsError) throw pointsError;
+
+      toast({
+        title: "Exchange Successful! 🎉",
+        description: `${quantity}x ${product.name} ordered. ${totalPoints} EcoPoints deducted.`,
+        duration: 5000,
+      });
+
+      setQuantity(1);
+      onClose();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to complete exchange. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -132,9 +201,13 @@ const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Your balance:</span>
-              <span className={`font-semibold ${hasEnoughPoints ? 'text-emerald-600' : 'text-destructive'}`}>
-                {userPoints} EcoPoints
-              </span>
+              {isLoading ? (
+                <span className="text-sm text-muted-foreground">Loading...</span>
+              ) : (
+                <span className={`font-semibold ${hasEnoughPoints ? 'text-emerald-600' : 'text-destructive'}`}>
+                  {userPoints} EcoPoints
+                </span>
+              )}
             </div>
             {hasEnoughPoints && (
               <div className="flex items-center justify-between text-sm mt-1">
@@ -148,16 +221,16 @@ const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
 
           {/* Action Buttons */}
           <div className="flex gap-4 pt-4">
-            <Button type="button" variant="outline" onClick={onClose} className="flex-1">
+            <Button type="button" variant="outline" onClick={onClose} className="flex-1" disabled={isSubmitting}>
               Cancel
             </Button>
             <Button 
               onClick={handleExchange} 
-              className={`flex-1 ${hasEnoughPoints ? 'btn-eco-primary' : 'bg-gray-400'}`}
-              disabled={!hasEnoughPoints}
+              className={`flex-1 ${hasEnoughPoints && !isLoading ? 'btn-eco-primary' : 'bg-gray-400'}`}
+              disabled={!hasEnoughPoints || isSubmitting || isLoading}
             >
               <Package className="w-4 h-4 mr-2" />
-              {hasEnoughPoints ? 'Exchange Now' : 'Not Enough Points'}
+              {isSubmitting ? 'Processing...' : hasEnoughPoints ? 'Exchange Now' : 'Not Enough Points'}
             </Button>
           </div>
         </div>

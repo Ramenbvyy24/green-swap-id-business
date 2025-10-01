@@ -7,7 +7,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription } from "@/components/ui/modal";
 import { MapPin, Phone, Calendar } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const pickupSchema = z.object({
+  address: z.string().trim().min(10, "Address must be at least 10 characters").max(500),
+  wasteType: z.string().min(1, "Please select a waste type"),
+  estimatedWeight: z.number().min(1, "Weight must be at least 1 kg").max(1000),
+  preferredDate: z.string().min(1, "Please select a date"),
+});
 
 interface PickupModalProps {
   isOpen: boolean;
@@ -16,38 +26,99 @@ interface PickupModalProps {
 
 const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
     address: "",
     wasteType: "",
     estimatedWeight: "",
     preferredDate: "",
-    notes: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simulate form submission
-    toast({
-      title: t("modal.pickup.success"),
-      description: `Your waste pickup is scheduled for ${formData.preferredDate}. Our green van will contact you 30 minutes before arrival.`,
-      duration: 5000,
-    });
+    if (!user) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to schedule a pickup",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    // Reset form and close modal
-    setFormData({
-      name: "",
-      phone: "",
-      address: "",
-      wasteType: "",
-      estimatedWeight: "",
-      preferredDate: "",
-      notes: ""
-    });
-    onClose();
+    setIsSubmitting(true);
+
+    try {
+      const validated = pickupSchema.parse({
+        address: formData.address,
+        wasteType: formData.wasteType,
+        estimatedWeight: parseFloat(formData.estimatedWeight),
+        preferredDate: formData.preferredDate,
+      });
+
+      const { error: pickupError } = await supabase
+        .from("pickup_requests")
+        .insert({
+          user_id: user.id,
+          address: validated.address,
+          waste_type: validated.wasteType,
+          estimated_weight: validated.estimatedWeight,
+          preferred_date: validated.preferredDate,
+        });
+
+      if (pickupError) throw pickupError;
+
+      // Calculate EcoPoints reward
+      const multiplier = validated.wasteType === 'metal' ? 15 : 
+                        validated.wasteType === 'plastic' ? 10 :
+                        validated.wasteType === 'paper' ? 8 : 10;
+      const points = Math.floor(validated.estimatedWeight * multiplier);
+
+      // Add EcoPoints transaction
+      const { error: pointsError } = await supabase
+        .from("ecopoints_transactions")
+        .insert({
+          user_id: user.id,
+          amount: points,
+          transaction_type: "earned",
+          description: `Pickup scheduled - ${validated.wasteType} (${validated.estimatedWeight}kg)`,
+        });
+
+      if (pointsError) throw pointsError;
+
+      toast({
+        title: t("modal.pickup.success"),
+        description: `Pickup scheduled for ${formData.preferredDate}. You'll earn ${points} EcoPoints!`,
+        duration: 5000,
+      });
+
+      // Reset form and close modal
+      setFormData({
+        address: "",
+        wasteType: "",
+        estimatedWeight: "",
+        preferredDate: "",
+      });
+      onClose();
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        toast({
+          title: "Validation error",
+          description: err.issues[0].message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to schedule pickup. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -68,29 +139,6 @@ const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
         </ModalHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="name">Full Name *</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                placeholder="Enter your full name"
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="phone">Phone Number *</Label>
-              <Input
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => handleChange("phone", e.target.value)}
-                placeholder="+62 812-3456-7890"
-                required
-              />
-            </div>
-          </div>
-
           <div>
             <Label htmlFor="address">Pickup Address *</Label>
             <Textarea
@@ -145,17 +193,6 @@ const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
             />
           </div>
 
-          <div>
-            <Label htmlFor="notes">Additional Notes</Label>
-            <Textarea
-              id="notes"
-              value={formData.notes}
-              onChange={(e) => handleChange("notes", e.target.value)}
-              placeholder="Any special instructions for our pickup team..."
-              rows={2}
-            />
-          </div>
-
           {/* EcoPoints Calculation */}
           {formData.estimatedWeight && formData.wasteType && (
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
@@ -180,12 +217,12 @@ const PickupModal = ({ isOpen, onClose }: PickupModalProps) => {
           )}
 
           <div className="flex gap-4 pt-4">
-            <Button type="button" variant="outline" onClick={onClose} className="flex-1">
+            <Button type="button" variant="outline" onClick={onClose} className="flex-1" disabled={isSubmitting}>
               Cancel
             </Button>
-            <Button type="submit" className="btn-eco-primary flex-1">
+            <Button type="submit" className="btn-eco-primary flex-1" disabled={isSubmitting}>
               <Phone className="w-4 h-4 mr-2" />
-              Schedule Pickup
+              {isSubmitting ? "Scheduling..." : "Schedule Pickup"}
             </Button>
           </div>
         </form>
