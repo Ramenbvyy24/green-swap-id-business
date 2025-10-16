@@ -27,6 +27,16 @@ export default function Auth() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [signUpForm, setSignUpForm] = useState({
+    fullName: '',
+    phone: '',
+    email: '',
+    password: '',
+  });
+  const [signInForm, setSignInForm] = useState({
+    email: '',
+    password: '',
+  });
 
   useEffect(() => {
     if (!loading && user) {
@@ -44,18 +54,6 @@ export default function Auth() {
       </div>
     );
   }
-
-  const [signUpForm, setSignUpForm] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    password: '',
-  });
-
-  const [signInForm, setSignInForm] = useState({
-    email: '',
-    password: '',
-  });
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
