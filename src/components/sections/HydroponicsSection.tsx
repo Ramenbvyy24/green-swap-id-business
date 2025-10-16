@@ -5,6 +5,17 @@ import { Sprout, Coins, Package, Star } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hydroponicImage from "@/assets/hydroponic-system.jpg";
 import ExchangeModal from "@/components/modals/ExchangeModal";
+import shopeeLogo from "@/assets/shopee-logo.png";
+import tokopediaLogo from "@/assets/tokopedia-logo.png";
+import gopayLogo from "@/assets/gopay-logo.png";
+import telkomselLogo from "@/assets/telkomsel-logo.png";
+import xlLogo from "@/assets/xl-logo.png";
+import watermelonImg from "@/assets/watermelon.jpg";
+import melonImg from "@/assets/melon.jpg";
+import mangoImg from "@/assets/mango.jpg";
+import appleImg from "@/assets/apple.jpg";
+import orangeImg from "@/assets/orange.jpg";
+import bananaImg from "@/assets/banana.jpg";
 
 const HydroponicsSection = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
@@ -25,7 +36,8 @@ const HydroponicsSection = () => {
       originalPrice: "Rp 750,000",
       image: "🥬",
       category: "Starter Kit",
-      rating: 4.9
+      rating: 4.9,
+      imageType: "emoji"
     },
     {
       id: 2,
@@ -35,7 +47,8 @@ const HydroponicsSection = () => {
       originalPrice: "Rp 1,500,000", 
       image: "🍅",
       category: "Advanced",
-      rating: 4.8
+      rating: 4.8,
+      imageType: "emoji"
     },
     {
       id: 3,
@@ -45,7 +58,131 @@ const HydroponicsSection = () => {
       originalPrice: "Rp 2,500,000",
       image: "🌿",
       category: "Premium",
-      rating: 5.0
+      rating: 5.0,
+      imageType: "emoji"
+    },
+    // Vouchers
+    {
+      id: 4,
+      name: "Voucher Shopee Rp 50.000",
+      description: "Voucher belanja Shopee senilai Rp 50.000 untuk semua produk",
+      points: 50,
+      originalPrice: "Rp 50,000",
+      image: shopeeLogo,
+      category: "E-Commerce",
+      rating: 4.9,
+      imageType: "url"
+    },
+    {
+      id: 5,
+      name: "Voucher Tokopedia Rp 50.000",
+      description: "Voucher belanja Tokopedia senilai Rp 50.000 untuk semua produk",
+      points: 50,
+      originalPrice: "Rp 50,000",
+      image: tokopediaLogo,
+      category: "E-Commerce",
+      rating: 4.8,
+      imageType: "url"
+    },
+    {
+      id: 6,
+      name: "Saldo GoPay Rp 25.000",
+      description: "Top up saldo GoPay senilai Rp 25.000",
+      points: 25,
+      originalPrice: "Rp 25,000",
+      image: gopayLogo,
+      category: "E-Wallet",
+      rating: 5.0,
+      imageType: "url"
+    },
+    {
+      id: 7,
+      name: "Pulsa Telkomsel Rp 20.000",
+      description: "Voucher pulsa Telkomsel senilai Rp 20.000",
+      points: 20,
+      originalPrice: "Rp 20,000",
+      image: telkomselLogo,
+      category: "Pulsa",
+      rating: 4.9,
+      imageType: "url"
+    },
+    {
+      id: 8,
+      name: "Pulsa XL Rp 20.000",
+      description: "Voucher pulsa XL senilai Rp 20.000",
+      points: 20,
+      originalPrice: "Rp 20,000",
+      image: xlLogo,
+      category: "Pulsa",
+      rating: 4.8,
+      imageType: "url"
+    },
+    // Fruits
+    {
+      id: 9,
+      name: "Semangka Segar (1 kg)",
+      description: "Semangka segar manis, kaya akan vitamin dan air",
+      points: 15,
+      originalPrice: "Rp 15,000",
+      image: watermelonImg,
+      category: "Buah",
+      rating: 4.7,
+      imageType: "url"
+    },
+    {
+      id: 10,
+      name: "Melon Segar (1 kg)",
+      description: "Melon segar manis dengan daging buah orange",
+      points: 20,
+      originalPrice: "Rp 20,000",
+      image: melonImg,
+      category: "Buah",
+      rating: 4.8,
+      imageType: "url"
+    },
+    {
+      id: 11,
+      name: "Mangga Harum Manis (1 kg)",
+      description: "Mangga harum manis matang sempurna",
+      points: 25,
+      originalPrice: "Rp 25,000",
+      image: mangoImg,
+      category: "Buah",
+      rating: 4.9,
+      imageType: "url"
+    },
+    {
+      id: 12,
+      name: "Apel Fuji (1 kg)",
+      description: "Apel Fuji merah segar dan renyah",
+      points: 30,
+      originalPrice: "Rp 30,000",
+      image: appleImg,
+      category: "Buah",
+      rating: 4.8,
+      imageType: "url"
+    },
+    {
+      id: 13,
+      name: "Jeruk Manis (1 kg)",
+      description: "Jeruk manis segar kaya vitamin C",
+      points: 18,
+      originalPrice: "Rp 18,000",
+      image: orangeImg,
+      category: "Buah",
+      rating: 4.7,
+      imageType: "url"
+    },
+    {
+      id: 14,
+      name: "Pisang Cavendish (1 kg)",
+      description: "Pisang Cavendish matang sempurna",
+      points: 12,
+      originalPrice: "Rp 12,000",
+      image: bananaImg,
+      category: "Buah",
+      rating: 4.6,
+      imageType: "url"
     }
   ];
 
@@ -123,15 +260,23 @@ const HydroponicsSection = () => {
           {/* Products Grid */}
           <div>
             <h3 className="text-3xl font-bold text-foreground text-center mb-12">
-              Popular Hydroponic Products
+              Popular Products - Vouchers, Pulsa & Buah-buahan
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
               {products.map((product) => (
                 <Card key={product.id} className="card-eco overflow-hidden group">
                   {/* Product Image */}
-                  <div className="h-48 bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center text-6xl mb-6 rounded-xl">
-                    {product.image}
+                  <div className="h-48 bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center mb-6 rounded-xl overflow-hidden">
+                    {product.imageType === "emoji" ? (
+                      <span className="text-6xl">{product.image}</span>
+                    ) : (
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="w-full h-full object-contain p-4"
+                      />
+                    )}
                   </div>
 
                   {/* Product Info */}
