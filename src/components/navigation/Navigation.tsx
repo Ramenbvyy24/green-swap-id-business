@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Recycle, Leaf, LogOut } from "lucide-react";
+import { Menu, X, Recycle, Leaf, LogOut, Settings } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { scrollToSection } from "@/utils/scrollUtils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
-import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import PickupModal from "@/components/modals/PickupModal";
+import UserSettingsModal from "@/components/modals/UserSettingsModal";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const { t } = useLanguage();
   const { signOut } = useAuth();
 
@@ -60,15 +67,28 @@ const Navigation = () => {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
-              <LanguageSwitcher />
               <Button onClick={handleGetStarted} className="btn-eco-primary">
                 <Leaf className="w-4 h-4 mr-2" />
                 {t("nav.getStarted")}
               </Button>
-              <Button variant="ghost" onClick={signOut} className="text-muted-foreground hover:text-primary">
-                <LogOut className="w-4 h-4 mr-2" />
-                {t("nav.logout") || "Logout"}
-              </Button>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon" className="rounded-full">
+                    <Settings className="w-5 h-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 bg-popover z-50">
+                  <DropdownMenuItem onClick={() => setIsSettingsModalOpen(true)}>
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={signOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    {t("nav.logout") || "Logout"}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             {/* Mobile Menu Button */}
@@ -94,12 +114,13 @@ const Navigation = () => {
                   </button>
                 ))}
                 <div className="px-4 pt-4 space-y-3">
-                  <div className="flex justify-center mb-3">
-                    <LanguageSwitcher />
-                  </div>
                   <Button onClick={handleGetStarted} className="btn-eco-primary w-full">
                     <Leaf className="w-4 h-4 mr-2" />
                     {t("nav.getStarted")}
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsSettingsModalOpen(true)} className="w-full justify-start">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
                   </Button>
                   <Button variant="ghost" onClick={signOut} className="w-full justify-start text-muted-foreground hover:text-primary">
                     <LogOut className="w-4 h-4 mr-2" />
@@ -113,6 +134,7 @@ const Navigation = () => {
       </nav>
 
       <PickupModal isOpen={isPickupModalOpen} onClose={() => setIsPickupModalOpen(false)} />
+      <UserSettingsModal isOpen={isSettingsModalOpen} onClose={() => setIsSettingsModalOpen(false)} />
     </>
   );
 };
