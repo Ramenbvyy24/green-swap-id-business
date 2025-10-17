@@ -210,9 +210,9 @@ const HydroponicsSection = () => {
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 bg-emerald-500/10 rounded-full px-6 py-3 mb-6">
-              <Sprout className="w-5 h-5 text-emerald-600" />
-              <span className="text-emerald-700 font-semibold">Hydroponic Marketplace</span>
+            <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-3 mb-6">
+              <Sprout className="w-5 h-5 text-primary" />
+              <span className="text-primary font-semibold">Hydroponic Marketplace</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
               {t("hydroponics.title")}

@@ -137,14 +137,14 @@ const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
 
         <div className="space-y-6">
           {/* Product Display */}
-          <div className="bg-gradient-to-br from-green-100 to-green-50 rounded-xl p-6 text-center">
+          <div className="bg-muted rounded-xl p-6 text-center">
             <div className="text-6xl mb-4">{product.image}</div>
             <h3 className="font-bold text-foreground text-xl mb-2">{product.name}</h3>
             <p className="text-muted-foreground text-sm">{product.description}</p>
           </div>
 
           {/* Points Display */}
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+          <div className="bg-muted border border-border rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-muted-foreground">Price per item:</span>
               <div className="flex items-center gap-2">
@@ -190,7 +190,7 @@ const ExchangeModal = ({ isOpen, onClose, product }: ExchangeModalProps) => {
           </div>
 
           {/* Total Calculation */}
-          <div className="bg-secondary/5 border border-secondary/20 rounded-lg p-4">
+          <div className="bg-muted border border-border rounded-lg p-4">
             <div className="flex items-center justify-between mb-3">
               <span className="font-semibold">Total Cost:</span>
               <div className="flex items-center gap-2">
