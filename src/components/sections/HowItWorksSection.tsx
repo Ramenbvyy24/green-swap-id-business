@@ -22,7 +22,7 @@ const HowItWorksSection = () => {
     description: t("howItWorks.step3.desc"),
     color: "from-emerald-500 to-emerald-600"
   }];
-  return <section id="how-it-works" className="py-24 bg-muted/30">
+  return <section id="how-it-works" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
@@ -67,22 +67,22 @@ const HowItWorksSection = () => {
         </div>
 
         {/* Process Flow Visualization */}
-        <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-3xl p-12 text-center">
+        <div className="bg-card rounded-3xl p-12 text-center border border-border">
           <h3 className="text-2xl font-bold text-foreground mb-4">Machida Technique Integration</h3>
           <p className="text-muted-foreground mb-8 max-w-3xl mx-auto">Sistem kami menerapkan metodologi pemisahan dan daur ulang limbah Machida Jepang yang terkenal, memastikan efisiensi maksimum dan dampak lingkungan minimal sekaligus mendukung pertanian hidroponik lokal.</p>
           
           <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-            <div className="bg-white rounded-xl p-6 shadow-eco">
+            <div className="bg-muted rounded-xl p-6 shadow-eco border border-border">
               <div className="text-3xl font-bold text-primary mb-2">1 KG</div>
               <div className="text-sm text-muted-foreground">Plastic Waste</div>
             </div>
             <ArrowRight className="w-6 h-6 text-primary rotate-90 md:rotate-0" />
-            <div className="bg-white rounded-xl p-6 shadow-eco">
+            <div className="bg-muted rounded-xl p-6 shadow-eco border border-border">
               <div className="text-3xl font-bold text-secondary mb-2">10</div>
               <div className="text-sm text-muted-foreground">EcoPoints</div>
             </div>
             <ArrowRight className="w-6 h-6 text-primary rotate-90 md:rotate-0" />
-            <div className="bg-white rounded-xl p-6 shadow-eco">
+            <div className="bg-muted rounded-xl p-6 shadow-eco border border-border">
               <div className="text-3xl font-bold text-accent-foreground mb-2">1</div>
               <div className="text-sm text-muted-foreground">Lettuce Seedling</div>
             </div>

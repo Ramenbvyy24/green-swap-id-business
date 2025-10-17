@@ -88,7 +88,7 @@ const SDGSection = () => {
         </div>
 
         {/* Impact Statistics */}
-        <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl p-12">
+        <div className="bg-card rounded-3xl p-12 border border-border">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-foreground mb-4">Measurable Impact in West Java</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">

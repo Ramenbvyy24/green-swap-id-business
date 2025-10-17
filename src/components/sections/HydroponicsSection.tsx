@@ -206,7 +206,7 @@ const HydroponicsSection = () => {
 
   return (
     <>
-      <section id="hydroponics" className="py-24 nature-gradient">
+      <section id="hydroponics" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-20">
@@ -267,7 +267,7 @@ const HydroponicsSection = () => {
               {products.map((product, index) => (
                 <Card key={product.id} className="card-eco overflow-hidden group hover-lift scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   {/* Product Image */}
-                  <div className="h-48 bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/20 dark:to-green-800/20 flex items-center justify-center mb-6 rounded-xl overflow-hidden">
+                  <div className="h-48 bg-muted flex items-center justify-center mb-6 rounded-xl overflow-hidden">
                     {product.imageType === "emoji" ? (
                       <span className="text-6xl">{product.image}</span>
                     ) : (
@@ -316,20 +316,20 @@ const HydroponicsSection = () => {
             </div>
 
             {/* EcoPoints Info */}
-            <div className="bg-white rounded-2xl p-8 shadow-eco text-center">
+            <div className="bg-card rounded-2xl p-8 shadow-eco text-center border border-border">
               <h4 className="text-2xl font-bold text-foreground mb-4">How to Earn EcoPoints</h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-primary/5 rounded-xl p-6">
+                <div className="bg-muted rounded-xl p-6">
                   <div className="text-3xl mb-2">♻️</div>
                   <div className="font-bold text-primary mb-2">1 KG Plastic</div>
                   <div className="text-sm text-muted-foreground">= 10 EcoPoints</div>
                 </div>
-                <div className="bg-secondary/5 rounded-xl p-6">
+                <div className="bg-muted rounded-xl p-6">
                   <div className="text-3xl mb-2">📄</div>
                   <div className="font-bold text-secondary mb-2">1 KG Paper</div>
                   <div className="text-sm text-muted-foreground">= 8 EcoPoints</div>
                 </div>
-                <div className="bg-accent/20 rounded-xl p-6">
+                <div className="bg-muted rounded-xl p-6">
                   <div className="text-3xl mb-2">🥫</div>
                   <div className="font-bold text-accent-foreground mb-2">1 KG Metal</div>
                   <div className="text-sm text-muted-foreground">= 15 EcoPoints</div>
