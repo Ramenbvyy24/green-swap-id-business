@@ -224,11 +224,11 @@ const HydroponicsSection = () => {
 
           {/* Hero Image and Benefits */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-            <div>
+            <div className="scale-in">
               <img 
                 src={hydroponicImage}
                 alt="Modern hydroponic farming system with fresh vegetables"
-                className="w-full rounded-2xl shadow-float"
+                className="w-full rounded-2xl shadow-float hover-lift"
               />
             </div>
             
@@ -264,17 +264,17 @@ const HydroponicsSection = () => {
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {products.map((product) => (
-                <Card key={product.id} className="card-eco overflow-hidden group">
+              {products.map((product, index) => (
+                <Card key={product.id} className="card-eco overflow-hidden group hover-lift scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   {/* Product Image */}
-                  <div className="h-48 bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center mb-6 rounded-xl overflow-hidden">
+                  <div className="h-48 bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/20 dark:to-green-800/20 flex items-center justify-center mb-6 rounded-xl overflow-hidden">
                     {product.imageType === "emoji" ? (
                       <span className="text-6xl">{product.image}</span>
                     ) : (
                       <img 
                         src={product.image} 
                         alt={product.name}
-                        className="w-full h-full object-contain p-4"
+                        className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300"
                       />
                     )}
                   </div>

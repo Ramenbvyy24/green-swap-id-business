@@ -73,11 +73,11 @@ const CTASection = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white/90">
               <div>
                 <div className="font-semibold mb-2">WhatsApp Support</div>
-                <div className="text-2xl font-bold">+62 812-3456-7890</div>
+                <div className="text-2xl font-bold">08119293108</div>
               </div>
               <div>
                 <div className="font-semibold mb-2">Email</div>
-                <div className="text-2xl font-bold">hello@tukarinaja.id</div>
+                <div className="text-2xl font-bold">tukarinaja@gmail.com</div>
               </div>
             </div>
             
